@@ -1,0 +1,4 @@
+{
+    "refresh_interval": 13,
+    "ip_source_url": "http://api.ipify.org"
+}

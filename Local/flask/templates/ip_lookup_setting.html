@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>IP查询设置</h2>
+    <form action="/update-ip-lookup-setting" method="post">
+        <div class="form-group">
+            <label for="refreshInterval">刷新间隔（分钟）:</label>
+            <input type="number" class="form-control" id="refreshInterval" name="refreshInterval" min="10" max="1024" required value="{{ config['refresh_interval'] }}">
+        </div>
+        
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="ipSource" id="defaultSource" value="default" {{ 'checked' if config['ip_source_url'] == 'http://api.ipify.org' else '' }}>
+                <label class="form-check-label" for="defaultSource">
+                    使用默认 IP 查询源
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="ipSource" id="customSource" value="custom" {{ 'checked' if config['ip_source_url'] != 'http://api.ipify.org' else '' }}>
+                <label class="form-check-label" for="customSource">
+                    使用自定义 IP 查询源
+                </label>
+            </div>
+            <input type="url" class="form-control" id="customIpSourceUrl" name="customIpSourceUrl" placeholder="输入自定义查询源 URL" value="{{ config['ip_source_url'] if config['ip_source_url'] != 'http://api.ipify.org' else '' }}">
+        </div>
+
+        <button type="submit" class="btn btn-primary">更新设置</button>
+    </form>    
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var sourceRadios = document.querySelectorAll('input[name="ipSource"]');
+        var customUrlInput = document.getElementById('customIpSourceUrl');
+
+        var toggleCustomUrlInput = function() {
+            if (document.getElementById('customSource').checked) {
+                customUrlInput.disabled = false;
+            } else {
+                customUrlInput.disabled = true;
+                customUrlInput.value = '';
+            }
+        };
+
+        sourceRadios.forEach(function(radio) {
+            radio.addEventListener('change', toggleCustomUrlInput);
+        });
+
+        toggleCustomUrlInput();  // 初始化状态
+    });
+</script>
+{% endblock %}
+

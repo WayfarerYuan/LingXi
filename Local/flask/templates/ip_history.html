@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">当前 IP</h5>
+        <p class="card-text" id="currentIp">加载中...</p>
+        <button id="refreshIp" class="btn btn-primary">立即查询 IP</button>
+    </div>
+</div>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h5 class="card-title">IP 更变历史</h5>
+        <ul id="ipHistory">
+            <!-- 历史记录将在这里插入 -->
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById('refreshIp').addEventListener('click', function() {
+            fetch('/get-current-ip').then(response => response.json()).then(data => {
+                document.getElementById('currentIp').textContent = data.current_ip;
+
+                // 记录新的 IP 到历史记录
+                recordIpChange(data.current_ip);
+            });
+        });
+
+        function recordIpChange(ip) {
+            // 实现将新的 IP 记录添加到页面和保存到文件的逻辑
+        }
+
+        // 可以在这里添加读取历史记录并显示的逻辑
+    });
+</script>
+{% endblock %}

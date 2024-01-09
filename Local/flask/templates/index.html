@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DDNS Project Homepage</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- <h1>Welcome to LingXi local admin page.</h1> -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">本地配置</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item {{ 'active' if active_page == 'home' else '' }}">
+                        <a class="nav-link" href="/">主页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">云端账户登陆</a>
+                    </li>
+                    <li class="nav-item {{ 'active' if active_page == 'ip_lookup_setting' else '' }}">
+                        <a class="nav-link" href="/ip-lookup-setting">IP查询设置</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">IP更变历史</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">当前状态</h5>
+                            <p class="card-text">用户验证状态: 未验证</p>
+                            <p class="card-text">当前 IP 地址: 192.168.1.1</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <!-- <div class="card-body">
+                            <h5 class="card-title">本地配置</h5>
+                            <p class="card-text"><p class="card-text">刷新间隔: 30 秒</p>
+                            <p class="card-text"><p class="card-text">查询来源: http://api.ipify.org</p>
+                        </div> -->
+                        <div class="card-body">
+                            <h5 class="card-title">本地配置</h5>
+                            <p class="card-text">当前刷新间隔: {{ config['refresh_interval'] }} 分钟</p> <!-- 使用传递的值 -->
+                            <p class="card-text">当前 IP 查询源: {{ config['ip_source_url'] }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
